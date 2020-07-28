@@ -1,0 +1,23 @@
+version: 1.1
+kind: component
+name: dummy_output
+
+inputs:
+  # run
+  - {name: show_expected, type: bool, isFlag: true, value: false, isOptional: true}
+
+run:
+  kind: job
+  connections: [artifacts]
+  environment:
+    nodeSelector:
+      polyaxon: experiments
+  init:
+  - git: {"url": "https://github.com/stefankraft/polyaxon", "revision": "bugreport_artifact_store"}
+  container:
+    image: polyaxon/polyaxon-examples
+    command: [python3, "{{ globals.artifacts_path }}/polyaxon/run_dummy_output.py"]
+    imagePullPolicy: "Always"
+    args: [
+      "--show_expected={{ show_expected }}",
+    ]
