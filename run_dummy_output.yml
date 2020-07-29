@@ -9,9 +9,6 @@ inputs:
 run:
   kind: job
   connections: [artifacts]
-  environment:
-    nodeSelector:
-      polyaxon: experiments
   init:
   - git: {"url": "https://github.com/stefankraft/polyaxon", "revision": "bugreport_artifact_store"}
   container:
